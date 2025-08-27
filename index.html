@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Valores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calculadora de Valores</h1>
+            <div class="display-toggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="displayToggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Mostrar em K</span>
+            </div>
+        </header>
+
+        <main class="calculator">
+            <div class="option-card">
+                <h3>Trivial</h3>
+                <div class="value-display" data-base="500000">500K</div>
+                <div class="controls">
+                    <button class="btn-minus" data-option="trivial">-</button>
+                    <span class="quantity">0</span>
+                    <button class="btn-plus" data-option="trivial">+</button>
+                </div>
+            </div>
+
+            <div class="option-card">
+                <h3>Easy</h3>
+                <div class="value-display" data-base="600000">600K</div>
+                <div class="controls">
+                    <button class="btn-minus" data-option="easy">-</button>
+                    <span class="quantity">0</span>
+                    <button class="btn-plus" data-option="easy">+</button>
+                </div>
+            </div>
+
+            <div class="option-card">
+                <h3>Medium</h3>
+                <div class="value-display" data-base="700000">700K</div>
+                <div class="controls">
+                    <button class="btn-minus" data-option="medium">-</button>
+                    <span class="quantity">0</span>
+                    <button class="btn-plus" data-option="medium">+</button>
+                </div>
+            </div>
+
+            <div class="option-card soul-prism">
+                <h3>Soul Prism</h3>
+                <div class="value-display" data-base="550000">550K</div>
+                <div class="controls">
+                    <button class="btn-minus" data-option="soul-prism">-</button>
+                    <span class="quantity">0</span>
+                    <button class="btn-plus" data-option="soul-prism">+</button>
+                </div>
+            </div>
+
+            <div class="option-card hard-plus">
+                <h3>Hard+</h3>
+                <div class="value-container">
+                    <input type="number" class="value-input" value="900000" min="0" step="1000">
+                    <div class="value-display" data-base="900000">900K</div>
+                </div>
+                <div class="controls">
+                    <button class="btn-minus" data-option="hard-plus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="btn-plus" data-option="hard-plus">+</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="summary">
+            <h2>Resumo das Seleções</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Trivial:</span>
+                    <span class="summary-value" data-summary="trivial">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Easy:</span>
+                    <span class="summary-value" data-summary="easy">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Medium:</span>
+                    <span class="summary-value" data-summary="medium">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Soul Prism:</span>
+                    <span class="summary-value" data-summary="soul-prism">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Hard+:</span>
+                    <span class="summary-value" data-summary="hard-plus">0</span>
+                </div>
+            </div>
+            <div class="total-summary">
+                <strong>Total de Itens: <span id="totalItems">0</span></strong>
+                <br>
+                <strong>Valor Total: <span id="totalValue">0</span></strong>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
