@@ -52,25 +52,31 @@ class Calculator {
         });
         
         // Input do Hard+
-        const hardPlusInput = document.querySelector('.hard-plus .value-input');
-        hardPlusInput.addEventListener('input', (e) => {
+        const hardPlusInput = document.querySelector(".hard-plus .value-input");
+        hardPlusInput.addEventListener("input", (e) => {
             let value = parseInt(e.target.value) || 0;
             if (value < 0) {
                 value = 0;
                 e.target.value = value;
             }
-            this.baseValues['hard-plus'] = value;
-            this.updateValueDisplay('hard-plus');
+            this.baseValues["hard-plus"] = value;
+            this.updateValueDisplay("hard-plus");
             this.updateSummary();
         });
+
+        // Botão de copiar resumo
+        const copyButton = document.getElementById("copySummary");
+        copyButton.addEventListener("click", () => {
+            this.copySummaryToClipboard();
+        });
     }
-    
+
     incrementQuantity(option) {
         this.quantities[option]++;
         this.updateQuantityDisplay(option);
         this.updateSummary();
     }
-    
+
     decrementQuantity(option) {
         if (this.quantities[option] > 0) {
             this.quantities[option]--;
@@ -78,61 +84,77 @@ class Calculator {
             this.updateSummary();
         }
     }
-    
+
     updateQuantityDisplay(option) {
-        const card = document.querySelector(`[data-option="${option}"]`).closest('.option-card');
-        const quantitySpan = card.querySelector('.quantity');
+        const card = document.querySelector(`[data-option="${option}"]`).closest(".option-card");
+        const quantitySpan = card.querySelector(".quantity");
         quantitySpan.textContent = this.quantities[option];
     }
-    
+
     updateValueDisplay(option) {
-        const card = document.querySelector(`[data-option="${option}"]`).closest('.option-card');
-        const valueDisplay = card.querySelector('.value-display');
+        const card = document.querySelector(`[data-option="${option}"]`).closest(".option-card");
+        const valueDisplay = card.querySelector(".value-display");
         const baseValue = this.baseValues[option];
-        
+
         valueDisplay.dataset.base = baseValue;
         valueDisplay.textContent = this.formatValue(baseValue);
     }
-    
+
     updateAllDisplays() {
         Object.keys(this.baseValues).forEach(option => {
             this.updateValueDisplay(option);
             this.updateQuantityDisplay(option);
         });
     }
-    
+
     formatValue(value) {
         if (this.showInK) {
             if (value >= 1000) {
-                return (value / 1000).toLocaleString('pt-BR') + 'K';
+                return (value / 1000).toLocaleString("pt-BR") + "K";
             }
-            return value.toLocaleString('pt-BR');
+            return value.toLocaleString("pt-BR");
         } else {
-            return value.toLocaleString('pt-BR');
+            return value.toLocaleString("pt-BR");
         }
     }
-    
+
     updateSummary() {
         // Atualizar contadores individuais
         Object.keys(this.quantities).forEach(option => {
             const summaryElement = document.querySelector(`[data-summary="${option}"]`);
             summaryElement.textContent = this.quantities[option];
         });
-        
+
         // Calcular totais
         const totalItems = Object.values(this.quantities).reduce((sum, qty) => sum + qty, 0);
         const totalValue = Object.keys(this.quantities).reduce((sum, option) => {
             return sum + (this.quantities[option] * this.baseValues[option]);
         }, 0);
-        
+
         // Atualizar displays de total
-        document.getElementById('totalItems').textContent = totalItems;
-        document.getElementById('totalValue').textContent = this.formatValue(totalValue);
+        document.getElementById("totalItems").textContent = totalItems;
+        document.getElementById("totalValue").textContent = this.formatValue(totalValue);
+    }
+
+    copySummaryToClipboard() {
+        let summaryText = "Resumo das Seleções:\n";
+        Object.keys(this.quantities).forEach(option => {
+            summaryText += `${option.charAt(0).toUpperCase() + option.slice(1).replace('-', ' ')}: ${this.quantities[option]}\n`;
+        });
+        summaryText += `Total de Itens: ${document.getElementById("totalItems").textContent}\n`;
+        summaryText += `Valor Total: ${document.getElementById("totalValue").textContent}`;
+
+        navigator.clipboard.writeText(summaryText).then(() => {
+            alert("Resumo copiado para a área de transferência!");
+        }).catch(err => {
+            console.error("Erro ao copiar: ", err);
+            alert("Erro ao copiar o resumo.");
+        });
     }
 }
 
 // Inicializar a calculadora quando a página carregar
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     new Calculator();
 });
 
