@@ -9,11 +9,11 @@ class Calculator {
         };
         
         this.baseValues = {
-            'trivial': 500000,
-            'easy': 600000,
-            'medium': 700000,
-            'soul-prism': 550000,
-            'hard-plus': 900000
+            'trivial': 400000,
+            'easy': 400000,
+            'medium': 500000,
+            'soul-prism': 600000,
+            'hard-plus': 700000
         };
         
         this.showInK = true;
